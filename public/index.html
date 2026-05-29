@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria Don node</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-danger mb-4 shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="navbar-brand mb-0 h1">Pizzeria Don node</span>
+            <button id="btnNoche" class="btn btn-dark btn-sm border-white">Modo noche</button>
+        </div>
+    </nav>
+
+    <script>
+        const botonTema = document.getElementById('btnNoche');
+        const elementoHtml = document.documentElement;
+        
+
+        if(localStorage.getItem('temaDonNode') === 'dark') {
+            elementoHtml.setAttribute('data-bs-theme', 'dark');
+            botonTema.innerText = 'Modo dia';
+        }
+
+        
+        botonTema.addEventListener('click', () => {
+            if (elementoHtml.getAttribute('data-bs-theme') === 'dark') {
+                elementoHtml.setAttribute('data-bs-theme', 'light');
+                localStorage.setItem('temaDonNode', 'light');
+                botonTema.innerText = 'Modo noche';
+            } else {
+                elementoHtml.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('temaDonNode', 'dark');
+                botonTema.innerText = 'Modo dia';
+            }
+        });
+    </script>
+
+
+
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="mb-4 text-center">Registrar pedido</h2>
+                    
+                    <form action="/pedidos" method="post">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre del cliente</label>
+                            <input required class="form-control" name="nom_cliente" type="text" placeholder="Ingresa tu nombre">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tamaño de la pizza</label>
+                            <select name="tamano" class="form-select" required>
+                                <option value="">Selecciona</option>
+                                <option value="Chica">Chica (Base: $3.990)</option>
+                                <option value="Mediana">Mediana (Base: $5.990)</option>
+                                <option value="Grande">Grande (Base: $8.490)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ingredientes (3 incluidos, luego se cobra extra)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Jamon"> Jamon
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Queso extra"> Queso extra
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Champiñones"> Champiñones
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Aceitunas"> Aceitunas
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Cebolla"> Cebolla
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Pimenton"> Pimenton
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ingredientes" value="Tocino"> Tocino
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Cantidad de pizzas</label>
+                            <input type="number" min="1" required class="form-control" name="cantidad" value="1">
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 mb-3">Registrar pedido</button>
+                        <div class="text-center">
+                            <a href="/pedidos/lista" class="text-decoration-none">Ver lista de pedidos</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
